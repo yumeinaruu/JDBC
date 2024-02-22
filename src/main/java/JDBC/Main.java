@@ -8,12 +8,15 @@ import java.time.LocalDateTime;
 public class Main {
     public static void main(String[] args) {
         UserRepository userRepository = new UserRepository();
-        User user = new User();
+
+/*        User user = new User();
         user.setAge(13);
         user.setUsername("Vova");
         user.setUserPassword("qwerty");
         user.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         user.setChanged(Timestamp.valueOf(LocalDateTime.now()));
-        System.out.println(userRepository.createUser(user));
+        System.out.println(userRepository.createUser(user));*/
+
+        System.out.println(userRepository.deleteUser(10L));
     }
 }

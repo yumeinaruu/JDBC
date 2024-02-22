@@ -21,12 +21,12 @@ public class UserRepository {
     }*/
 
     public boolean createUser(User user) {
-        try{
+        try {
             entityManager.getTransaction().begin(); //начинаем транзакцию
-            entityManager.persist(user);
+            entityManager.persist(user); //метод для сохранения
             entityManager.getTransaction().commit();//коммиты
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             System.out.println(e);
         }
@@ -36,6 +36,16 @@ public class UserRepository {
    /* public boolean updateUser(User user) {
     }*/
 
-  /*  public boolean deleteUser(Long id) {
-    }*/
+    public boolean deleteUser(Long id) {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.find(User.class, id));
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            System.out.println(e);
+        }
+        return false;
+    }
 }
