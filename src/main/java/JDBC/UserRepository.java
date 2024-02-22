@@ -17,8 +17,14 @@ public class UserRepository {
   /*  public List<User> findAll() {
     }*/
 
-   /* public User getUser(Long id) {
-    }*/
+    public User findUserById(Long id) {
+        try {
+            return entityManager.find(User.class, id);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public boolean createUser(User user) {
         try {
@@ -33,8 +39,18 @@ public class UserRepository {
         return false;
     }
 
-   /* public boolean updateUser(User user) {
-    }*/
+    public boolean updateUser(User user) { //лучше описать методы по апдейту каждого нужного поля отдельно
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(user); //update
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            System.out.println(e);
+        }
+        return false;
+    }
 
     public boolean deleteUser(Long id) {
         try {

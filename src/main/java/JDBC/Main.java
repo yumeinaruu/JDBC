@@ -14,9 +14,16 @@ public class Main {
         user.setUsername("Vova");
         user.setUserPassword("qwerty");
         user.setCreated(Timestamp.valueOf(LocalDateTime.now()));
-        user.setChanged(Timestamp.valueOf(LocalDateTime.now()));
-        System.out.println(userRepository.createUser(user));*/
+        user.setChanged(Timestamp.valueOf(LocalDateTime.now()));*/
 
-        System.out.println(userRepository.deleteUser(10L));
+        //System.out.println(userRepository.createUser(user));
+
+        //System.out.println(userRepository.deleteUser(10L));
+
+        User user = userRepository.findUserById(17L);
+        System.out.println(user);
+
+        user.setUserPassword("qwerty_updated");
+        System.out.println(userRepository.updateUser(user));
     }
 }
