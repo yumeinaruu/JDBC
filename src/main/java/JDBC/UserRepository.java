@@ -52,6 +52,21 @@ public class UserRepository {
         return false;
     }
 
+    public boolean updateUserPassword(String newPassword, Long id) {
+        try {
+            User user = entityManager.find(User.class, id);
+            user.setUserPassword(newPassword);
+            entityManager.getTransaction().begin();
+            entityManager.merge(user); //update
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public boolean deleteUser(Long id) {
         try {
             entityManager.getTransaction().begin();
