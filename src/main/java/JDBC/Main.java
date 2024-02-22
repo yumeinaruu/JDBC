@@ -1,19 +1,19 @@
 package JDBC;
 
+import com.tms.JPA.User;
+
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        JdbcExample example = new JdbcExample();
-        User user = new User(14L, "jdbc_example",
-                "123", new Timestamp(1L),
-                new Timestamp(2L), 13);
-        example.findAll();
-        System.out.println(example.getUser(13L));
-        System.out.println(example.deleteUser(13L));
-        System.out.println(example.checkTransaction());
-        System.out.println(example.getUsernameFromTheOldestUser());
-        System.out.println(example.truncateTelephoneTable());
-        example.connectionClose();
+        UserRepository userRepository = new UserRepository();
+        User user = new User();
+        user.setAge(13);
+        user.setUsername("Vova");
+        user.setUserPassword("qwerty");
+        user.setCreated(Timestamp.valueOf(LocalDateTime.now()));
+        user.setChanged(Timestamp.valueOf(LocalDateTime.now()));
+        System.out.println(userRepository.createUser(user));
     }
 }
