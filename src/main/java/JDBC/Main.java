@@ -20,10 +20,12 @@ public class Main {
 
         //System.out.println(userRepository.deleteUser(10L));
 
-        User user = userRepository.findUserById(17L);
-        System.out.println(user);
+  /*      User user = userRepository.findUserById(17L);
+        System.out.println(user);*/
 
-        user.setUserPassword("qwerty_updated");
-        System.out.println(userRepository.updateUser(user));
+        /*user.setUserPassword("qwerty_updated");
+        System.out.println(userRepository.updateUser(user));*/
+
+        System.out.println(userRepository.findAll());
     }
 }

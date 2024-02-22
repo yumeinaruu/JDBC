@@ -4,6 +4,7 @@ import com.tms.JPA.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 import java.util.List;
 
@@ -14,8 +15,12 @@ public class UserRepository {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         entityManager = factory.createEntityManager();
     }
-  /*  public List<User> findAll() {
-    }*/
+
+    public List<User> findAll() {
+       // Query query = entityManager.createNativeQuery("SELECT * FROM users", User.class);// без  User.class не будет toString()
+        Query query = entityManager.createQuery("SELECT users", User.class); //JPQL
+        return query.getResultList();
+    }
 
     public User findUserById(Long id) {
         try {
