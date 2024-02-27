@@ -9,16 +9,16 @@ public class Main {
     public static void main(String[] args) {
         UserRepository userRepository = new UserRepository();
 
-/*        User user = new User();
+        /*User user = new User();
         user.setAge(13);
         user.setUsername("Vova");
         user.setUserPassword("qwerty");
         user.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         user.setChanged(Timestamp.valueOf(LocalDateTime.now()));*/
 
-        //System.out.println(userRepository.createUser(user));
+/*        System.out.println(userRepository.createUser(user));*/
 
-        //System.out.println(userRepository.deleteUser(10L));
+       // System.out.println(userRepository.deleteUser(14L));
 
   /*      User user = userRepository.findUserById(17L);
         System.out.println(user);*/
@@ -26,6 +26,6 @@ public class Main {
         /*user.setUserPassword("qwerty_updated");
         System.out.println(userRepository.updateUser(user));*/
 
-        System.out.println(userRepository.findAll());
+       //System.out.println(userRepository.findAll());
     }
 }
