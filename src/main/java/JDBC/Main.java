@@ -18,14 +18,14 @@ public class Main {
 
 /*        System.out.println(userRepository.createUser(user));*/
 
-       // System.out.println(userRepository.deleteUser(14L));
+      // System.out.println(userRepository.deleteUser(22L));
 
-  /*      User user = userRepository.findUserById(17L);
+       /* User user = userRepository.findUserById(22L);
         System.out.println(user);*/
 
         /*user.setUserPassword("qwerty_updated");
         System.out.println(userRepository.updateUser(user));*/
 
-       //System.out.println(userRepository.findAll());
+       System.out.println(userRepository.findAll());
     }
 }
