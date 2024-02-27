@@ -1,38 +1,36 @@
 package JDBC;
 
 import com.tms.JPA.User;
-import jakarta.persistence.criteria.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
     private Session session = null;
-    CriteriaBuilder criteriaBuilder = null;
 
     public UserRepository() {
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         session = factory.openSession();
-        criteriaBuilder = session.getCriteriaBuilder();
     }
 
     public List<User> findAll() {
-        CriteriaQuery<User> criteria = criteriaBuilder.createQuery(User.class);
-        Root<User> root = criteria.from(User.class);
-        criteria.select(root);
-        return session.createQuery(criteria).getResultList();
+        try {
+            return session.createQuery("from users", User.class).getResultList();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return new ArrayList<>();
     }
 
     public User findUserById(Long id) {
         try {
-            CriteriaQuery<User> criteria = criteriaBuilder.createQuery(User.class);
-            Root<User> root = criteria.from(User.class);
-            criteria.select(root).where(criteriaBuilder.equal(root.get("id"), id));
-
-            return session.createQuery(criteria).getSingleResult();
+            Query<User> query = session.createQuery("from users u where u.id = :userId", User.class);
+            query.setParameter("userId", id);
+            return query.getSingleResult();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -41,6 +39,8 @@ public class UserRepository {
 
     public boolean createUser(User user) {
         try {
+            //Query<User> query = session.createQuery("insert into users (username, userPassword, created, changed, age) select (username, userPassword, created, changed, age) from second_table_name", User.class);
+            //int result = query.executeUpdate(); //еще добавить транзакции
             session.getTransaction().begin();
             session.persist(user);
             session.getTransaction().commit();
@@ -54,15 +54,16 @@ public class UserRepository {
 
     public boolean updateUser(User user) { //лучше описать методы по апдейту каждого нужного поля отдельно
         try {
-            CriteriaUpdate<User> criteria = criteriaBuilder.createCriteriaUpdate(User.class);
-            Root<User> root = criteria.from(User.class);
-            criteria.set("username", user.getUsername());
+            Query<User> query = session.createQuery("update users" +
+                    " set username=:un, userPassword=:up, created=:cr, changed=:ch, age=:a where id=:id", User.class);
+            query.setParameter("un", user.getUsername());
+            query.setParameter("up", user.getUserPassword());
+            query.setParameter("cr", user.getCreated());
+            query.setParameter("ch", user.getChanged());
+            query.setParameter("a", user.getAge());
+            query.setParameter("id", user.getId());
 
-            criteria.where(criteriaBuilder.equal(root.get("id"), user.getId()));
-
-            session.getTransaction().begin();
-            session.createMutationQuery(criteria).executeUpdate();
-            session.getTransaction().commit();
+            query.executeUpdate();//и транзакции добавить
             return true;
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -88,13 +89,10 @@ public class UserRepository {
 
     public boolean deleteUser(Long id) {
         try {
-            CriteriaDelete<User> criteria = criteriaBuilder.createCriteriaDelete(User.class);
-            Root<User> root = criteria.from(User.class);
-            criteria.where(criteriaBuilder.equal(root.get("id"), id));
+            Query<User> query = session.createQuery("delete from users where id =:id", User.class);
+            query.setParameter("id", id);
 
-            session.getTransaction().begin();
-            session.createMutationQuery(criteria).executeUpdate();
-            session.getTransaction().commit();
+            query.executeUpdate();//транзакции еще
             return true;
         } catch (Exception e) {
             session.getTransaction().rollback();
