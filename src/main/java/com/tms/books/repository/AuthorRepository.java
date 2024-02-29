@@ -20,7 +20,7 @@ public class AuthorRepository {
     public ArrayList<Author> getAllAuthors(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<Author> query = session.createQuery("from author");
+        Query<Author> query = session.createQuery("from author", Author.class);
         ArrayList<Author> list = (ArrayList<Author>) query.getResultList();
         session.getTransaction().commit();
         session.close();

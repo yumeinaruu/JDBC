@@ -19,7 +19,7 @@ public class BookRepository {
     public ArrayList<Book> getAllBooks(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<Book> query = session.createQuery("from book");
+        Query<Book> query = session.createQuery("from books", Book.class);
         ArrayList<Book> list = (ArrayList<Book>) query.getResultList();
         session.getTransaction().commit();
         session.close();

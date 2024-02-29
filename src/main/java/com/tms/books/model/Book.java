@@ -1,5 +1,9 @@
 package com.tms.books.model;
 
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import jakarta.persistence.Column;
@@ -8,10 +12,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.util.Collection;
 
-@Entity(name = "book")
+@Entity(name = "books")
 @Data
+@ToString(exclude = {"pages", "authors"})
+@EqualsAndHashCode(exclude = {"pages", "authors"})
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq")
@@ -20,4 +29,11 @@ public class Book {
 
     @Column(name = "book_name")
     private String bookName;
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
+    //fetch - как вытаскивать коллекции(EAGER - все и всегда выгружает. LAZY - не все, но могут быть ошибки)
+    private Collection<Page> pages;
+
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    private Collection<Author> authors;
 }

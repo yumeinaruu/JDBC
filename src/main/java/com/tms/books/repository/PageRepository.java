@@ -19,7 +19,7 @@ public class PageRepository {
     public ArrayList<Page> getAllPages(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query<Page> query = session.createQuery("from pages");
+        Query<Page> query = session.createQuery("from pages", Page.class);
         ArrayList<Page> list = (ArrayList<Page>) query.getResultList();
         session.getTransaction().commit();
         session.close();

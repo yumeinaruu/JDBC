@@ -1,31 +1,27 @@
 package JDBC;
 
 import com.tms.JPA.User;
+import com.tms.books.model.Author;
+import com.tms.books.repository.AuthorRepository;
+import com.tms.books.repository.BookRepository;
+import com.tms.books.repository.PageRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        UserRepository userRepository = new UserRepository();
+/*        PageRepository pageRepository = new PageRepository();
+        System.out.println(pageRepository.getAllPages());*/
 
-        /*User user = new User();
-        user.setAge(13);
-        user.setUsername("Vova");
-        user.setUserPassword("qwerty");
-        user.setCreated(Timestamp.valueOf(LocalDateTime.now()));
-        user.setChanged(Timestamp.valueOf(LocalDateTime.now()));*/
+      /*  BookRepository bookRepository = new BookRepository();
+        System.out.println(bookRepository.getBookById(2).getPages());
+        System.out.println(bookRepository.getBookById(2).getAuthors());*/
 
-/*        System.out.println(userRepository.createUser(user));*/
-
-      // System.out.println(userRepository.deleteUser(22L));
-
-        /*User user = userRepository.findUserById(22L);
-        System.out.println(user);*/
-
-        /*user.setUserPassword("qwerty_updated");
-        System.out.println(userRepository.updateUser(user));*/
-
-       //System.out.println(userRepository.findAll());
+        AuthorRepository authorRepository = new AuthorRepository();
+        for(Author a : authorRepository.getAllAuthors()){
+            System.out.println(a);
+            System.out.println(a.getBooks());
+        }
     }
 }
