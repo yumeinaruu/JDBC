@@ -43,4 +43,21 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>9.8.1</version>
+                <configuration>
+                    <url>jdbc:postgresql://localhost:5432/c71_database</url>
+                    <user>postgres</user>
+                    <password>123</password>
+                    <cleanDisabled>false</cleanDisabled>
+                    <baselineVersion>1.0.0</baselineVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
