@@ -31,7 +31,7 @@ public class Book {
     private String bookName;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
-    //fetch - как вытаскивать коллекции(EAGER - все и всегда выгружает. LAZY - не все, но могут быть ошибки)
+    //Fetch - как вытаскивать коллекции(EAGER - все и всегда выгружает. LAZY - не все, но могут быть ошибки)
     private Collection<Page> pages;
 
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
