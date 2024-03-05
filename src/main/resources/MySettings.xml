@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -5,4 +6,4 @@
     <bean id="cap" class="com.tms.Cap">
         <constructor-arg name="text" value="Hello world!!"/>
     </bean>
-</beans>
+</beans>-->
