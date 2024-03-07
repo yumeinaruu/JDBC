@@ -11,6 +11,6 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
         Cap capBean = (Cap) context.getBean("cap");
-        System.out.println(capBean);
+        System.out.println(capBean.inner);
     }
 }
